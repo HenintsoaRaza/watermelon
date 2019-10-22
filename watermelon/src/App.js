@@ -1,27 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import { Button } from 'reactstrap';
 import './App.css';
+import { isLogicalExpression } from '@babel/types';
+import logo from './img/logo.jpg';
+import Header from './Header.js';
+import Body from './Body.js';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div>
+            <Header/>
+            <div class="dropdown-divider"></div>
+            <Body/>
+        </div>
+
+    );
 }
 
 export default App;
