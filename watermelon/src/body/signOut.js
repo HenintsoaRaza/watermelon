@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import image1 from './img/image1.jpg';
 import image2 from './img/image2.jpg';
@@ -15,6 +15,7 @@ function signOut() {
                     src={image1}
                     width="800"
                     height="400"
+                    alt="img1"
                 />
                 <Carousel.Caption>
                     <h3>Easy Transfer</h3>
@@ -28,6 +29,7 @@ function signOut() {
                     src={image2}
                     width="800"
                     height="400"
+                    alt="img2"
                 />
                 <Carousel.Caption>
                     <h3>Many cards in one app</h3>
@@ -41,6 +43,8 @@ function signOut() {
                     src={image3}
                     width="800"
                     height="400"
+                    alt="img3"
+
                 />
                 <Carousel.Caption>
                     <h3 class="text-dark">Simplicity</h3>

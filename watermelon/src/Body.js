@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
 import './App.css';
-import { isLogicalExpression } from '@babel/types';
-import signOut from './body/signOut.js';
+import * as display from './body/index.js';
 
 class Body extends Component {
     constructor(props) {
@@ -13,12 +11,8 @@ class Body extends Component {
     displayBody() {
 
         switch (this.props.page) {
-            case 'signOut':
-                return signOut();
-<<<<<<< HEAD
-=======
-                break;
->>>>>>> HeaderBranch
+            case 'signOut': //Déconnexion
+                return display.signOut();
 
             case 'addCard':
 
@@ -48,13 +42,11 @@ class Body extends Component {
 
                 break;
 
-            case 'signUp':
+            case 'signUp': //Inscription
+                return <display.signUp/>;
 
-                break;
-
-            case 'signIn':
-
-                break;
+            case 'signIn': //Connexion
+                return <display.signIn/>;
 
             default:
                 alert('default case');

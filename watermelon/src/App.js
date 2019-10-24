@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
 import './App.css';
-import { isLogicalExpression } from '@babel/types';
 import Header from './Header.js';
 import Body from './Body.js';
 
@@ -10,8 +8,8 @@ class App extends Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
-            user: 'Bertrand',
-            page: 'signIn'
+            user: '',
+            page: 'signOut'
         };
     }
 
@@ -30,7 +28,8 @@ class App extends Component {
                 <Body
                     user={this.state.user}
                     page={this.state.page}
-                    
+                    onChange={this.handleChange}
+
                 
                 />
             </div>

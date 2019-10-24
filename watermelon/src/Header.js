@@ -4,7 +4,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import Badge from 'react-bootstrap/Badge';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import './App.css';
-import { isLogicalExpression } from '@babel/types';
 import logo from './img/logo.png';
 
 class Header extends Component {
@@ -26,36 +25,36 @@ class Header extends Component {
                 break;
 
             case 'delCard':
-                    this.props.onChange({ user: this.props.user, page: eventKey });
-                    break;
+                this.props.onChange({ user: this.props.user, page: eventKey });
+                break;
 
             case 'updCard':
-                    this.props.onChange({ user: this.props.user, page: eventKey });
-                    break;
+                this.props.onChange({ user: this.props.user, page: eventKey });
+                break;
 
             case 'deposit':
-                    this.props.onChange({ user: this.props.user, page: eventKey });
-                    break;
+                this.props.onChange({ user: this.props.user, page: eventKey });
+                break;
 
             case 'withdrawal':
-                    this.props.onChange({ user: this.props.user, page: eventKey });
-                    break;
+                this.props.onChange({ user: this.props.user, page: eventKey });
+                break;
 
             case 'transfer':
-                    this.props.onChange({ user: this.props.user, page: eventKey });
-                    break;
+                this.props.onChange({ user: this.props.user, page: eventKey });
+                break;
 
             case 'account':
-                    this.props.onChange({ user: this.props.user, page: eventKey });
-                    break;
+                this.props.onChange({ user: this.props.user, page: eventKey });
+                break;
 
             case 'signUp':
-                    this.props.onChange({ user: this.props.user, page: eventKey });
-                    break;
+                this.props.onChange({ user: this.props.user, page: eventKey });
+                break;
 
             case 'signIn':
-                    this.props.onChange({ user: this.props.user, page: eventKey });
-                    break;
+                this.props.onChange({ user: this.props.user, page: eventKey });
+                break;
 
             default:
                 alert('default case');
@@ -64,16 +63,18 @@ class Header extends Component {
     }
 
     displayHeader() {
-        if (this.props.user == '') {
+        if (this.props.user === '') {
             return (
                 <Nav
                     className="justify-content-end"
                     onSelect={selectedKey => this.handleChange(selectedKey)}
                 >
-                    <Nav.Link eventKey="signUp" >Inscription</Nav.Link>
+                    <Badge variant="danger">
+                        <Nav.Link eventKey="signUp"><a class="text-white"> Inscription </a></Nav.Link>
+                    </Badge>
 
                     <Badge variant="success">
-                        <Nav.Link eventKey="signIn" >Connexion</Nav.Link>
+                        <Nav.Link eventKey="signIn"><a class="text-white"> Connexion </a></Nav.Link>
                     </Badge>
                 </Nav>
             );
@@ -115,6 +116,7 @@ class Header extends Component {
                             width="40"
                             height="33"
                             class="d-inline-block align-top"
+                            alt="logo"
                         />Watermelon
                     </Navbar.Brand>
                 </div>
