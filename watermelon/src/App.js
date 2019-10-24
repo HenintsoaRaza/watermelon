@@ -22,14 +22,17 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Header 
-                    user={this.state.user} 
-                    onChange={this.handleChange} 
-                    
+                <Header
+                    user={this.state.user}
+                    onChange={this.handleChange}
+
                 />
-                page: {this.state.page} <br/>
-                user: {this.state.user}
-                <Body user={this.state.user} />
+                <Body
+                    user={this.state.user}
+                    page={this.state.page}
+                    
+                
+                />
             </div>
         );
     }
