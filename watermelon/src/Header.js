@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Badge from 'react-bootstrap/Badge';
@@ -11,55 +10,94 @@ import logo from './img/logo.png';
 class Header extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            user : 'Bertrand',
-        }
-        
+        this.handleChange = this.handleChange.bind(this);
+        this.displayHeader = this.displayHeader.bind(this);
     }
 
-    userAction(eventKey){
-        if(eventKey == 'deconnexion'){
-            this.setState({user: 'null'}, ()=> {console.log(this.state.user);} );
-            
-            alert(`Set ${this.state.user}`);
+    handleChange(eventKey) {
+
+        switch (eventKey) {
+            case 'signOut':
+                this.props.onChange({ user: '', page: eventKey });
+                break;
+
+            case 'addCard':
+                this.props.onChange({ user: this.props.user, page: eventKey });
+                break;
+
+            case 'delCard':
+                    this.props.onChange({ user: this.props.user, page: eventKey });
+                    break;
+
+            case 'updCard':
+                    this.props.onChange({ user: this.props.user, page: eventKey });
+                    break;
+
+            case 'deposit':
+                    this.props.onChange({ user: this.props.user, page: eventKey });
+                    break;
+
+            case 'withdrawal':
+                    this.props.onChange({ user: this.props.user, page: eventKey });
+                    break;
+
+            case 'transfer':
+                    this.props.onChange({ user: this.props.user, page: eventKey });
+                    break;
+
+            case 'account':
+                    this.props.onChange({ user: this.props.user, page: eventKey });
+                    break;
+
+            case 'signUp':
+                    this.props.onChange({ user: this.props.user, page: eventKey });
+                    break;
+
+            case 'signIn':
+                    this.props.onChange({ user: this.props.user, page: eventKey });
+                    break;
+
+            default:
+                alert('default case');
+                break;
         }
     }
 
     displayHeader() {
-        if (this.user == 'null') {
-            return(
-            <Nav 
-                className="justify-content-end" 
-                onSelect={selectedKey => alert(`selected ${selectedKey}`) }
+        if (this.props.user == '') {
+            return (
+                <Nav
+                    className="justify-content-end"
+                    onSelect={selectedKey => this.handleChange(selectedKey)}
                 >
-                <Badge variant="secondary">
-                    <Nav.Link eventKey="inscription" >Inscription</Nav.Link>
-                </Badge>
+                    <Nav.Link eventKey="signUp" >Inscription</Nav.Link>
 
-                <Badge variant="success">
-                    <Nav.Link eventKey="connexion" >Connexion</Nav.Link>
-                </Badge>
-            </Nav>
+                    <Badge variant="success">
+                        <Nav.Link eventKey="signIn" >Connexion</Nav.Link>
+                    </Badge>
+                </Nav>
             );
-
         } else {
             return (
-                <Nav className="justify-content-end" onSelect={ selectedKey => this.userAction(selectedKey) }>
+                <Nav
+                    className="justify-content-end"
+                    onSelect={selectedKey => this.handleChange(selectedKey)}
+                >
                     <NavDropdown title="Mes Cartes Bancaires" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">Ajouter une carte</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">Supprimer une carte</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Modifier une carte</NavDropdown.Item>
+                        <NavDropdown.Item eventKey="addCard">Ajouter une carte</NavDropdown.Item>
+                        <NavDropdown.Item eventKey="delCard">Supprimer une carte</NavDropdown.Item>
+                        <NavDropdown.Item eventKey="updCard">Modifier une carte</NavDropdown.Item>
                     </NavDropdown>
                     <NavDropdown title="Mon Portefeuille" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">Effectuer un dépôt</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">Effectuer un retrait</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Effectuer un transfert</NavDropdown.Item>
+                        <NavDropdown.Item eventKey="deposit">Effectuer un dépôt</NavDropdown.Item>
+                        <NavDropdown.Item eventKey="withdrawal">Effectuer un retrait</NavDropdown.Item>
+                        <NavDropdown.Item eventKey="transfer">Effectuer un transfert</NavDropdown.Item>
                     </NavDropdown>
-                    <Nav.Link eventKey="compte">Mon Compte</Nav.Link>
+                    <Nav.Link eventKey="account">Mon Compte</Nav.Link>
 
                     <Badge variant="danger">
-                        {this.state.user} <br />
-                        <Nav.Link eventKey="deconnexion" >Déconnexion</Nav.Link>
+                        {this.props.user} <br />
+                        <Nav.Link eventKey="signOut" >Déconnexion</Nav.Link>
                     </Badge>
                 </Nav>
             );
