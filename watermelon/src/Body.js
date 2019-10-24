@@ -15,6 +15,10 @@ class Body extends Component {
         switch (this.props.page) {
             case 'signOut':
                 return signOut();
+<<<<<<< HEAD
+=======
+                break;
+>>>>>>> HeaderBranch
 
             case 'addCard':
 
