@@ -3,6 +3,10 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import userNotIn from './utility/userNotIn';
 import loadUsers from './utility/loadUsers';
+import user from '../objects/user.js';
+import wallet from '../objects/wallet.js';
+
+
 
 class signUp extends Component {
     constructor(props) {
@@ -45,21 +49,21 @@ class signUp extends Component {
             });
             idMax++;
 
-            var key = 'u'.concat(idMax.toString());
             this.setState({ id: idMax }, () => {
                 //New user
-                localStorage.setItem(key, JSON.stringify(this.state));
+                var u = new user();
+                u.copy(this.state);
+                u.saveUser();
 
                 //New wallet
-                var wKey = 'w'.concat(this.state.id);
-                const wallet = { id: this.state.id, balance: 0 };
-                localStorage.setItem(wKey, JSON.stringify(wallet));
+                var w = new wallet(this.state.id, 0);
+                w.saveWallet();
             });
             alert('Félicitations vous êtes inscrits !');
         } else {
             event.preventDefault();
             event.stopPropagation();
-            alert('Cette email est déjà prise !');
+            alert('Cette adresse email est déjà prise !');
         }
     }
 

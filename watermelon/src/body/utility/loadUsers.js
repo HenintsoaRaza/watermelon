@@ -1,3 +1,4 @@
+import user from '../../objects/user.js';
 
 function loadUsers() {
     var listUsers = [];
@@ -5,7 +6,9 @@ function loadUsers() {
     for (let i = 0; i < localStorage.length; i++) {
         var key = localStorage.key(i);
         if(key.charAt(0) == 'u'){
-            listUsers.push(JSON.parse(localStorage.getItem(key)))
+            var u = new user();
+            u.copy(JSON.parse(localStorage.getItem(key)));
+            listUsers.push(u);
         }
     }
 

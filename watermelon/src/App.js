@@ -4,49 +4,50 @@ import Header from './Header.js';
 import Body from './Body.js';
 
 const keyPrevState = 'prevState';
-var PrevState ;
+var PrevState;
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
-            user: '',
+            userId: -1,
             page: 'signOut'
         };
-        
+        //localStorage.setItem(keyPrevState,JSON.stringify(this.state));
     }
 
     handleChange(e) {
-        this.setState({ user: e.user, page: e.page });
+        this.setState({ userId: e.userId, page: e.page });
     }
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         PrevState = localStorage.getItem(keyPrevState);
-        localStorage.setItem(keyPrevState,JSON.stringify(this.state));
+        localStorage.setItem(keyPrevState, JSON.stringify(this.state));
     }
 
-    componentDidMount(){
+    componentDidMount() {
         PrevState = JSON.parse(localStorage.getItem(keyPrevState));
-        if(PrevState.page != 'signOut'){
-            this.setState(JSON.parse(localStorage.getItem(keyPrevState)));
+        if (PrevState !== null) {
+            if (PrevState.page !== 'signOut') {
+                this.setState(JSON.parse(localStorage.getItem(keyPrevState)));
+            }
         }
+
     }
 
     render() {
         return (
             <div>
                 <Header
-                    user={this.state.user}
+                    userId={this.state.userId}
                     onChange={this.handleChange}
 
                 />
                 <Body
-                    user={this.state.user}
+                    userId={this.state.userId}
                     page={this.state.page}
                     onChange={this.handleChange}
-
-                
                 />
             </div>
         );

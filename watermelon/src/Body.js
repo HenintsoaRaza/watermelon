@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import * as display from './body/index.js';
 
+
 class Body extends Component {
     constructor(props) {
         super(props);
         this.state = {
             page: '',
-            user: '',
+            userId: '',
         }
     }
 
@@ -66,7 +67,7 @@ class Body extends Component {
             <main class="container-fluid" role="main">
                 {this.displayBody()}
                 page: {this.props.page} <br />
-                user: {this.props.user}
+                userId: {this.props.userId}
             </main>
         );
 

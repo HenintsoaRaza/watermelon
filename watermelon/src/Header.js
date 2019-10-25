@@ -15,43 +15,43 @@ class Header extends Component {
 
         switch (eventKey) {
             case 'signOut':
-                this.props.onChange({ user: '', page: eventKey });
+                this.props.onChange({ userId: -1, page: eventKey });
                 break;
 
             case 'addCard':
-                this.props.onChange({ user: this.props.user, page: eventKey });
+                this.props.onChange({ userId: this.props.userId, page: eventKey });
                 break;
 
             case 'delCard':
-                this.props.onChange({ user: this.props.user, page: eventKey });
+                this.props.onChange({ userId: this.props.userId, page: eventKey });
                 break;
 
             case 'updCard':
-                this.props.onChange({ user: this.props.user, page: eventKey });
+                this.props.onChange({ userId: this.props.userId, page: eventKey });
                 break;
 
             case 'deposit':
-                this.props.onChange({ user: this.props.user, page: eventKey });
+                this.props.onChange({ userId: this.props.userId, page: eventKey });
                 break;
 
             case 'withdrawal':
-                this.props.onChange({ user: this.props.user, page: eventKey });
+                this.props.onChange({ userId: this.props.userId, page: eventKey });
                 break;
 
             case 'transfer':
-                this.props.onChange({ user: this.props.user, page: eventKey });
+                this.props.onChange({ userId: this.props.userId, page: eventKey });
                 break;
 
             case 'account':
-                this.props.onChange({ user: this.props.user, page: eventKey });
+                this.props.onChange({ userId: this.props.userId, page: eventKey });
                 break;
 
             case 'signUp':
-                this.props.onChange({ user: this.props.user, page: eventKey });
+                this.props.onChange({ userId: -1, page: eventKey });
                 break;
 
             case 'signIn':
-                this.props.onChange({ user: this.props.user, page: eventKey });
+                this.props.onChange({ userId: -1, page: eventKey });
                 break;
 
             default:
@@ -61,7 +61,7 @@ class Header extends Component {
     }
 
     displayHeader = () => {
-        if (this.props.user === '') {
+        if (this.props.userId === -1) {
             return (
                 <Nav
                     className="justify-content-end"
@@ -96,7 +96,7 @@ class Header extends Component {
                     <Nav.Link eventKey="account">Mon Compte</Nav.Link>
 
                     <Badge variant="danger">
-                        {this.props.user} <br />
+                        {this.props.userId} <br />
                         <Nav.Link eventKey="signOut" >Déconnexion</Nav.Link>
                     </Badge>
                 </Nav>
