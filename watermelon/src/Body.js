@@ -5,10 +5,17 @@ import * as display from './body/index.js';
 class Body extends Component {
     constructor(props) {
         super(props);
-        this.displayBody = this.displayBody.bind(this);
+        this.state = {
+            page: '',
+            user: '',
+        }
     }
 
-    displayBody() {
+    handleChange = () => {
+        return this.props.onChange;
+    }
+    
+    displayBody = () => {
 
         switch (this.props.page) {
             case 'signOut': //Déconnexion

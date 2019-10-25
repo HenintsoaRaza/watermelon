@@ -3,6 +3,9 @@ import './App.css';
 import Header from './Header.js';
 import Body from './Body.js';
 
+const keyPrevState = 'prevState';
+var PrevState ;
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -11,10 +14,23 @@ class App extends Component {
             user: '',
             page: 'signOut'
         };
+        
     }
 
     handleChange(e) {
         this.setState({ user: e.user, page: e.page });
+    }
+
+    componentDidUpdate(){
+        PrevState = localStorage.getItem(keyPrevState);
+        localStorage.setItem(keyPrevState,JSON.stringify(this.state));
+    }
+
+    componentDidMount(){
+        PrevState = JSON.parse(localStorage.getItem(keyPrevState));
+        if(PrevState.page != 'signOut'){
+            this.setState(JSON.parse(localStorage.getItem(keyPrevState)));
+        }
     }
 
     render() {

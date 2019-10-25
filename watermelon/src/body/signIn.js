@@ -26,7 +26,7 @@ class signIn extends Component {
                 <br /><br /><br /><br />
                 <div class="rounded border border-success container-fluid col-lg-4 col-md-8 col-sm-10" >
                     <br /><br />
-                    <h1><a class="text-success" > Se Connecter </a></h1>
+                    <h1 align="center"><a class="text-success" > Se Connecter </a></h1>
                     <br /><br />
                     <Form >
                         <Form.Group controlId="formBasicEmail">

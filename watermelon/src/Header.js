@@ -9,11 +9,9 @@ import logo from './img/logo.png';
 class Header extends Component {
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.displayHeader = this.displayHeader.bind(this);
     }
 
-    handleChange(eventKey) {
+    handleChange = (eventKey) => {
 
         switch (eventKey) {
             case 'signOut':
@@ -62,13 +60,14 @@ class Header extends Component {
         }
     }
 
-    displayHeader() {
+    displayHeader = () => {
         if (this.props.user === '') {
             return (
                 <Nav
                     className="justify-content-end"
                     onSelect={selectedKey => this.handleChange(selectedKey)}
                 >
+                    <Nav.Link eventKey="signOut"> Accueil </Nav.Link>
                     <Badge variant="danger">
                         <Nav.Link eventKey="signUp"><a class="text-white"> Inscription </a></Nav.Link>
                     </Badge>
