@@ -54,9 +54,10 @@ class signIn extends Component {
                 alert("Le mdp est incorrect");
 
             } else {
-                event.preventDefault();
-                event.stopPropagation();
                 alert("Connexion réussie");
+                var pState = {userId: u.id ,page: 'account'};
+                var str = JSON.stringify(pState);
+                localStorage.setItem('prevState', str);
                 // Se connecter sur la page "Mon compte" avec le user trouvé
             }
         }
