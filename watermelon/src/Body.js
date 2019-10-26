@@ -47,8 +47,7 @@ class Body extends Component {
                 break;
 
             case 'account':
-
-                break;
+                return <display.account/>;
 
             case 'signUp': //Inscription
                 return <display.signUp/>;

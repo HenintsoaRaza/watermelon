@@ -46,4 +46,17 @@ class User {
         }
     }
 
+    existEmail = (email) => {
+        const tab = loadUsers();
+
+        for(let i = 0; i < tab.length; i++){
+            if(tab[i].email == email){
+                return tab[i].id ;
+            }
+        }
+
+        return null;
+    }
+
+
 } export default User;

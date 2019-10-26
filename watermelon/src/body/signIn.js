@@ -54,7 +54,6 @@ class signIn extends Component {
                 alert("Le mdp est incorrect");
 
             } else {
-                alert("Connexion réussie");
                 var pState = {userId: u.id ,page: 'account'};
                 var str = JSON.stringify(pState);
                 localStorage.setItem('prevState', str);
@@ -68,7 +67,7 @@ class signIn extends Component {
         return (
             <div>
                 <br /><br /><br /><br />
-                <div class="rounded border border-success container-fluid col-lg-4 col-md-8 col-sm-10" >
+                <div class="bg-light rounded border border-success container-fluid col-lg-4 col-md-8 col-sm-10" >
                     <br /><br />
                     <h1 align="center"><a class="text-success" > Se Connecter </a></h1>
                     <br /><br />

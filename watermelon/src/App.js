@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import Header from './Header.js';
 import Body from './Body.js';
+import Const from './const.js';
 
-const keyPrevState = 'prevState';
-var PrevState;
+var prevState;
+var cste = new Const();
 
 class App extends Component {
     constructor(props) {
@@ -14,7 +15,6 @@ class App extends Component {
             userId: -1,
             page: 'signOut'
         };
-        //localStorage.setItem(keyPrevState,JSON.stringify(this.state));
     }
 
     handleChange(e) {
@@ -22,15 +22,15 @@ class App extends Component {
     }
 
     componentDidUpdate() {
-        PrevState = localStorage.getItem(keyPrevState);
-        localStorage.setItem(keyPrevState, JSON.stringify(this.state));
+        prevState = localStorage.getItem(cste.keyPrevState);
+        localStorage.setItem(cste.keyPrevState, JSON.stringify(this.state));
     }
 
     componentDidMount() {
-        PrevState = JSON.parse(localStorage.getItem(keyPrevState));
-        if (PrevState !== null) {
-            if (PrevState.page !== 'signOut') {
-                this.setState(JSON.parse(localStorage.getItem(keyPrevState)));
+        prevState = JSON.parse(localStorage.getItem(cste.keyPrevState));
+        if (prevState !== null) {
+            if (prevState.page !== 'signOut') {
+                this.setState(JSON.parse(localStorage.getItem(cste.keyPrevState)));
             }
         }
 
