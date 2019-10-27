@@ -54,7 +54,7 @@ class signIn extends Component {
                 alert("Le mdp est incorrect");
 
             } else {
-                var pState = {userId: u.id ,page: 'account'};
+                var pState = { userId: u.id, page: 'account' };
                 var str = JSON.stringify(pState);
                 localStorage.setItem('prevState', str);
                 // Se connecter sur la page "Mon compte" avec le user trouvé
@@ -78,7 +78,8 @@ class signIn extends Component {
                                 required name="email"
                                 value={this.state.email}
                                 onChange={this.handleInputChange}
-                                type="email" placeholder="Entrer email" />                        </Form.Group>
+                                type="email" placeholder="Entrer email" />
+                        </Form.Group>
 
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label>Mot de Passe</Form.Label>
@@ -86,7 +87,8 @@ class signIn extends Component {
                                 required name="password"
                                 value={this.state.pwd}
                                 onChange={this.handleInputChange}
-                                type="password" placeholder="Mot de Passe" />                        </Form.Group>
+                                type="password" placeholder="Mot de Passe" />
+                        </Form.Group>
                         <br />
                         <Form.Group class="justify-content-end" controlId="formBasicButton">
                             <Button variant="success" type="submit">

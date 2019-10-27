@@ -10,14 +10,13 @@ var cste = new Const();
 class App extends Component {
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
         this.state = {
             userId: -1,
             page: 'signOut'
         };
     }
 
-    handleChange(e) {
+    handleChange = (e) => {
         this.setState({ userId: e.userId, page: e.page });
     }
 
@@ -33,7 +32,20 @@ class App extends Component {
                 this.setState(JSON.parse(localStorage.getItem(cste.keyPrevState)));
             }
         }
+    }
 
+    footer = () => {
+        return (
+            <div class="bg-light position-sticky">
+                <div align="center">
+                    <br /><br /><br />
+                    <font size="6" color="LightGrey">Auteurs:  </font><br /><br />
+                    <font size="4" color="LightGrey">Henintsoa RAZAFINDRAZAKA </font><br />
+                    <font size="4" color="LightGrey">Noha ZAHRAN </font>
+                <br /><br /><br />
+                </div>
+            </div>
+        );
     }
 
     render() {
@@ -49,6 +61,9 @@ class App extends Component {
                     page={this.state.page}
                     onChange={this.handleChange}
                 />
+
+                <br /><br /><br /><br /><br />
+                {this.footer()}
             </div>
         );
     }

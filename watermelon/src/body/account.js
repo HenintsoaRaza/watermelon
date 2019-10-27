@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import userNotIn from './utility/userNotIn';
-import loadUsers from './utility/loadUsers';
-import user from '../objects/user.js';
-import wallet from '../objects/wallet.js';
 import Const from '../const.js';
 import User from '../objects/user.js';
 
@@ -15,7 +11,7 @@ class account extends Component {
         super(props);
         var pState = JSON.parse(localStorage.getItem(cste.keyPrevState));
 
-        var u = new user();
+        var u = new User();
         u.findUserById(pState.userId);
 
         this.state = {
@@ -36,68 +32,35 @@ class account extends Component {
         const name = target.name;
         const prevState = this.state;
 
-        this.setState( prevState => {
-            let user = { ...prevState.user};
+        this.setState(prevState => {
+            let user = { ...prevState.user };
             user[name] = value;
-            return {user};
+            return { user };
         });
     }
-    
-
-    /*
-    handleSubmit = (event) => {
-        var listUsers = loadUsers();
-        if (userNotIn(listUsers, this.state.email)) {
-
-            var idMax = 0;
-
-            listUsers.forEach(element => {
-                if (element.id >= idMax) {
-                    idMax = element.id;
-                }
-            });
-            idMax++;
-
-            this.setState({ id: idMax }, () => {
-                //New user
-                var u = new user();
-                u.copy(this.state);
-                u.saveUser();
-
-                //New wallet
-                var w = new wallet(this.state.id, 0);
-                w.saveWallet();
-            });
-            alert('Félicitations vous êtes inscrits !');
-        } else {
-            event.preventDefault();
-            event.stopPropagation();
-            alert('Cette adresse email est déjà prise !');
-        }
-    }*/
 
     modify = () => {
-        this.setState({readOnly: !this.state.readOnly});
+        this.setState({ readOnly: !this.state.readOnly });
     }
 
     save = () => {
         var u = new User();
-        if(u.existEmail(this.state.user.email)){ // 1) Si l'email existe bien
+        if (u.existEmail(this.state.user.email)) { // (1) Si l'email existe bien
             var id = u.existEmail(this.state.user.email);
 
-            if(id == this.state.user.id){ // 1)A) Si c'est le même id (même compte)
-                u.copy(this.state.user); 
+            if (id == this.state.user.id) { // (1)-(A) Si c'est le même id (même compte)
+                u.copy(this.state.user);
                 u.saveUser();
-                alert('2  SUCCES');
+                alert('Les modifications ont été enregistrées');
 
-            } else { // 1)B) Si l'email appartient à un autre compte 
+            } else { // (1)-(B) Si l'email appartient à un autre compte
                 alert('Cette addresse email possède déjà un compte');
             }
 
-        } else { //2) Si l'email n'existe pas 
+        } else { //(2) Si l'email n'existe pas 
             u.copy(this.state.user);
             u.saveUser();
-            alert('1  SUCCES');
+            alert('Les modifications ont été enregistrées');
         }
     }
 

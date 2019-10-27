@@ -15,16 +15,22 @@ class Body extends Component {
     handleChange = () => {
         return this.props.onChange;
     }
-    
+
     displayBody = () => {
 
         switch (this.props.page) {
             case 'signOut': //Déconnexion
                 return display.signOut();
 
-            case 'addCard':
+            case 'card':
+                return <display.myCards />;
 
-                break;
+            case 'wallet':
+                //return <display.wallet />;
+
+            /*
+            case 'addCard':
+                return <display.addCard />;
 
             case 'delCard':
 
@@ -46,14 +52,16 @@ class Body extends Component {
 
                 break;
 
+            */
+
             case 'account':
-                return <display.account/>;
+                return <display.account />;
 
             case 'signUp': //Inscription
-                return <display.signUp/>;
+                return <display.signUp />;
 
             case 'signIn': //Connexion
-                return <display.signIn/>;
+                return <display.signIn />;
 
             default:
                 alert('default case');

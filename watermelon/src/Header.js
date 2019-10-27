@@ -18,29 +18,37 @@ class Header extends Component {
                 this.props.onChange({ userId: -1, page: eventKey });
                 break;
 
+            case 'card':
+                this.props.onChange({ userId: this.props.userId, page: eventKey });
+                break;
+
+            case 'wallet':
+                this.props.onChange({ userId: this.props.userId, page: eventKey });
+                break;
+            /*
             case 'addCard':
                 this.props.onChange({ userId: this.props.userId, page: eventKey });
                 break;
-
+ 
             case 'delCard':
                 this.props.onChange({ userId: this.props.userId, page: eventKey });
                 break;
-
+ 
             case 'updCard':
                 this.props.onChange({ userId: this.props.userId, page: eventKey });
                 break;
-
+ 
             case 'deposit':
                 this.props.onChange({ userId: this.props.userId, page: eventKey });
                 break;
-
+ 
             case 'withdrawal':
                 this.props.onChange({ userId: this.props.userId, page: eventKey });
                 break;
-
+ 
             case 'transfer':
                 this.props.onChange({ userId: this.props.userId, page: eventKey });
-                break;
+                break;*/
 
             case 'account':
                 this.props.onChange({ userId: this.props.userId, page: eventKey });
@@ -83,17 +91,10 @@ class Header extends Component {
                     className="justify-content-end"
                     onSelect={selectedKey => this.handleChange(selectedKey)}
                 >
-                    <NavDropdown title="Mes Cartes Bancaires" id="basic-nav-dropdown">
-                        <NavDropdown.Item eventKey="addCard">Ajouter une carte</NavDropdown.Item>
-                        <NavDropdown.Item eventKey="delCard">Supprimer une carte</NavDropdown.Item>
-                        <NavDropdown.Item eventKey="updCard">Modifier une carte</NavDropdown.Item>
-                    </NavDropdown>
-                    <NavDropdown title="Mon Portefeuille" id="basic-nav-dropdown">
-                        <NavDropdown.Item eventKey="deposit">Effectuer un dépôt</NavDropdown.Item>
-                        <NavDropdown.Item eventKey="withdrawal">Effectuer un retrait</NavDropdown.Item>
-                        <NavDropdown.Item eventKey="transfer">Effectuer un transfert</NavDropdown.Item>
-                    </NavDropdown>
-                    <Nav.Link eventKey="account">Mon Compte</Nav.Link>
+
+                    <Nav.Link eventKey="card">Mes Cartes Bancaires </Nav.Link>
+                    <Nav.Link eventKey="wallet">  Mon Portefeuille  </Nav.Link>
+                    <Nav.Link eventKey="account">     Mon Compte     </Nav.Link>
 
                     <Badge variant="danger">
                         {this.props.userId} <br />
