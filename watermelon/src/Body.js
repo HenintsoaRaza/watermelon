@@ -6,14 +6,6 @@ import * as display from './body/index.js';
 class Body extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            page: '',
-            userId: '',
-        }
-    }
-
-    handleChange = () => {
-        return this.props.onChange;
     }
 
     displayBody = () => {
@@ -23,39 +15,13 @@ class Body extends Component {
                 return display.signOut();
 
             case 'card':
-                return <display.myCards />;
+                return <display.myCards userId={this.props.userId} />;
 
             case 'wallet':
-                //return <display.wallet />;
-
-            /*
-            case 'addCard':
-                return <display.addCard />;
-
-            case 'delCard':
-
-                break;
-
-            case 'updCard':
-
-                break;
-
-            case 'deposit':
-
-                break;
-
-            case 'withdrawal':
-
-                break;
-
-            case 'transfer':
-
-                break;
-
-            */
+                return <display.myWallet userId={this.props.userId} />;
 
             case 'account':
-                return <display.account />;
+                return <display.account userId={this.props.userId} />;
 
             case 'signUp': //Inscription
                 return <display.signUp />;

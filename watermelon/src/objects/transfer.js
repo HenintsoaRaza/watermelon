@@ -6,5 +6,7 @@ class Transfer {
         this.amount = amount;
     }
 
+    
+
 }
 export default transfer;

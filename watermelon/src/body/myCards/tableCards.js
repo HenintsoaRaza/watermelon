@@ -37,7 +37,6 @@ class tableCards extends Component {
         window.location.reload(false);
     }
 
-
     render() {
         return (
             <Table striped bordered hover variant="dark">

@@ -8,7 +8,7 @@ import { Collapse } from 'react-collapse';
 
 import Const from '../const.js';
 import User from '../objects/user.js';
-import TableCards from './card/tableCards';
+import TableCards from './myCards/tableCards';
 import Card from '../objects/card.js';
 
 
@@ -17,8 +17,8 @@ const cste = new Const();
 class myCards extends Component {
     constructor(props) {
         super(props);
-        var pState = JSON.parse(localStorage.getItem(cste.keyPrevState));
 
+        var pState = JSON.parse(localStorage.getItem(cste.keyPrevState));
         var u = new User();
         u.findUserById(pState.userId);
 
@@ -106,7 +106,7 @@ class myCards extends Component {
                             <Row form>
                                 <Col md={4}>
                                     <FormGroup>
-                                        <label for="number">N° (4 derniers chiffres)</label>
+                                        <label for="last_4">N° (4 derniers chiffres)</label>
                                         <Form.Control
                                             required onChange={this.handleInputChange}
                                             name="last_4" type="text"
