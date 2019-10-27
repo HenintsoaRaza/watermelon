@@ -4,44 +4,39 @@ import Table from 'react-bootstrap/Table';
 import Const from '../../const.js';
 import User from '../../objects/user.js';
 import LineCard from './lineCard';
-
+import Card from '../../objects/card.js';
 
 const cste = new Const();
 
 class tableCards extends Component {
     constructor(props) {
         super(props);
-        var pState = JSON.parse(localStorage.getItem(cste.keyPrevState));
 
+        var pState = JSON.parse(localStorage.getItem(cste.keyPrevState));
         var u = new User();
         u.findUserById(pState.userId);
 
         this.state = {
-            user: {
-                id: u.id,
-                first_name: u.first_name,
-                last_name: u.last_name,
-                email: u.email,
-                password: u.password,
-            },
-            readOnly: true,
+            userId: u.id,
         };
     }
 
     displayAllCards = () => {
-        return (
-            <tbody>
-                <LineCard />
-
-            </tbody>
-
+        var util = new Card();
+        var id = this.state.userId;
+        var listCard = util.getCardByUserId(id);
+        
+        let listItem = listCard.map((c, index) =>
+            <LineCard card={c} i={index} />
         );
+
+        return (<tbody>{listItem}</tbody>) ;
     }
 
 
     render() {
         return (
-            <Table striped bordered hover variant="dark ">
+            <Table striped bordered hover variant="dark">
                 <thead>
                     <th>N° de carte (4 derniers chiffres)</th>
                     <th>Type</th>

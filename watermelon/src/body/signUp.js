@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import userNotIn from './utility/userNotIn';
-import loadUsers from './utility/loadUsers';
-import user from '../objects/user.js';
-import wallet from '../objects/wallet.js';
+import Wallet from '../objects/wallet.js';
+import User from '../objects/user.js';
 
 
 
@@ -37,8 +35,9 @@ class signUp extends Component {
     */
 
     handleSubmit = (event) => {
-        var listUsers = loadUsers();
-        if (userNotIn(listUsers, this.state.email)) {
+        var util = new User();
+        var listUsers = util.loadUsers();
+        if (util.userNotIn(this.state.email)) {
 
             var idMax = 0;
 
@@ -51,12 +50,12 @@ class signUp extends Component {
 
             this.setState({ id: idMax }, () => {
                 //New user
-                var u = new user();
+                var u = new User();
                 u.copy(this.state);
                 u.saveUser();
 
                 //New wallet
-                var w = new wallet(this.state.id, 0);
+                var w = new Wallet(this.state.id, 0);
                 w.saveWallet();
             });
             alert('Félicitations vous êtes inscrits !');

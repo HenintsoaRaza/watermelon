@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import userNotIn from './utility/userNotIn';
-import loadUsers from './utility/loadUsers';
-import user from '../objects/user.js';
+import User from '../objects/user.js';
 
 
 /*
@@ -38,14 +36,14 @@ class signIn extends Component {
     }
 
     handleSubmit = (event) => {
-        var listUsers = loadUsers();
-        if (userNotIn(listUsers, this.state.email)) { //Si on ne trouve pas l'email
+        var util = new User();
+        if (util.userNotIn(this.state.email)) { //Si on ne trouve pas l'email
             event.preventDefault();
             event.stopPropagation();
             alert("Cette adresse mail n'existe pas");
 
         } else { //Si l'email existe bien
-            var u = new user();
+            var u = new User();
             u.findUserByEmail(this.state.email); //u prend la valeur de l'objet trouvé par email
 
             if (u.password !== this.state.password) { // Si le mdp saisi ne colle pas avec celui enregistré
