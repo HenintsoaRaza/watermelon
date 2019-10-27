@@ -25,24 +25,24 @@ class myWallet extends Component {
 
             <div>
                 <br /><br />
-                <div class="bg-light rounded border container-fluid col-lg-8 col-md-11 col-sm-10" >
+                <div class="bg-dark rounded border container-fluid col-lg-8 col-md-11 col-sm-10" >
                     <br /><br />
-                    <h1 align="center"><a class="text-black"> Mon Solde </a></h1>
+                    <h1 align="center"><a class="text-light"> Mon Solde </a></h1>
 
                     <br />
-                    <h1 align="center"><a class="text-black"> {util.getBalanceById(userId)} € </a></h1>
+                    <h1 align="center"><a class="text-light"> {util.getBalanceById(userId)} € </a></h1>
                     <br /><br />
                 </div>
-                <br /><br />
+                <br />
 
                 <MyTransfers userId={this.props.userId} />
-                <br /><br />
+                <br />
 
                 <MyPayins userId={this.props.userId}/>
-                <br /><br />
+                <br />
 
                 <MyPayouts userId={this.props.userId}/>
-                <br /><br />
+                <br />
 
 
             </div>

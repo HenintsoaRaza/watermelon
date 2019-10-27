@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
-import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Const from '../../const.js';
-import Card from '../../objects/card.js';
+import Table from 'react-bootstrap/Table';
+import Payout from '../../objects/payout.js';
 import { Collapse } from 'react-collapse';
 
 
 class myPayouts extends Component {
     constructor(props) {
         super(props);
+        var po = new Payout();
+        var userId = this.props.userId;
         this.state = {
             collapse: false,
             amount: null,
-            tab: [],
+            wallet_id: userId,
+            tab: po.getPayoutsByWallet_id(userId),
         }
     }
 
@@ -23,8 +26,14 @@ class myPayouts extends Component {
     }
 
     tabPayouts = () => {
+        let listItem = this.state.tab.map((payout, index) =>
+            <tr>
+                <td align="center"> {index} </td>
+                <td align="center"> {(payout.amount/100)}</td>
+            </tr>
 
-        return null;
+        );
+        return (<tbody>{listItem}</tbody>);
     }
 
     handleInputChange = (event) => {
@@ -37,20 +46,41 @@ class myPayouts extends Component {
     }
 
     save = () => {
-        // sauver dans Localstorage et ajouter au tab[]
+        this.toggleCollapse();
+        var po = new Payout();
 
+        // sauver dans Localstorage et ajouter au tab[]
+        this.setState(state => {
+            var newId = po.getNewId();
+            po.id = newId;
+            po.copy(state);
+            po.amount = po.amount * 100;
+            po.save();
+
+            const list = state.tab.concat({ po });
+            return { tab: list };
+        });
     }
 
     render() {
         return (
 
             <div class="bg-light rounded border container-fluid col-lg-8 col-md-11 col-sm-10" >
-                <br /><br />
+                <br />
                 <h1 align="center"><a class="text-danger"> Mes Retraits </a></h1>
-                <br /><br />
+                <br />
 
-                {this.tabPayouts}
+                <Table striped bordered hover variant="danger">
+                    <thead>
+                        <th>#</th>
+                        <th>Montant (€)</th>
+                    </thead>
 
+                    
+                        {this.tabPayouts()}
+                </Table>
+
+                <br/><br/>
                 <div align="center" >
                     <Button variant="danger" onClick={this.toggleCollapse}>
                         Effectuer un retrait
@@ -70,7 +100,7 @@ class myPayouts extends Component {
                             />
                         </Col>
                         <Col md={4}>
-                            <Button variant="primary" onClick={this.save} >
+                            <Button variant="primary" onClick={() => { this.save() }} >
                                 Enregistrer
                             </Button>
                         </Col>

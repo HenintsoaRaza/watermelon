@@ -3,18 +3,21 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Const from '../../const.js';
-import Wallet from '../../objects/wallet.js';
+import Table from 'react-bootstrap/Table';
+import Payin from '../../objects/payin.js';
 import { Collapse } from 'react-collapse';
 
 
 class myPayins extends Component {
     constructor(props) {
         super(props);
+        var pi = new Payin();
+        var userId = this.props.userId;
         this.state = {
             collapse: false,
             amount: null,
-            tab: [],
+            wallet_id: userId,
+            tab: pi.getPayinsByWallet_id(userId),
         }
     }
 
@@ -23,8 +26,15 @@ class myPayins extends Component {
     }
 
     tabPayins = () => {
+        let listItem = this.state.tab.map((payin, index) => 
+            <tr>
+                <td align="center"> {index} </td>
+                <td align="center"> {payin.amount/100}</td>
+            </tr>
+        );
 
-        return null;
+
+        return (<tbody>{listItem}</tbody>);
     }
 
     handleInputChange = (event) => {
@@ -37,20 +47,41 @@ class myPayins extends Component {
     }
 
     save = () => {
-        // sauver dans Localstorage et ajouter au tab[]
+        this.toggleCollapse();
+        var pi = new Payin();
 
+        // sauver dans Localstorage et ajouter au tab[]
+        this.setState(state => {
+            var newId = pi.getNewId();
+            pi.id = newId;
+            pi.copy(state);
+            pi.amount = pi.amount * 100;
+            pi.save();
+
+            const list = state.tab.concat({ pi });
+            return { tab: list };
+        });
     }
 
     render() {
         return (
 
             <div class="bg-light rounded border container-fluid col-lg-8 col-md-11 col-sm-10" >
-                <br /><br />
+                <br />
                 <h1 align="center"><a class="text-success"> Mes Dépôts </a></h1>
-                <br /><br />
+                <br />
 
-                {this.tabPayins}
+                <Table striped bordered hover variant="success">
+                    <thead>
+                        <th>#</th>
+                        <th>Montant (€)</th>
+                    </thead>
 
+                    
+                        {this.tabPayins()}
+                </Table>
+
+                <br/><br/>
                 <div align="center" >
                     <Button variant="success" onClick={this.toggleCollapse}>
                         Effectuer un dépôt
@@ -70,7 +101,7 @@ class myPayins extends Component {
                             />
                         </Col>
                         <Col md={4}>
-                            <Button variant="primary" onClick={this.save} >
+                            <Button variant="primary" onClick={() => { this.save() }} >
                                 Enregistrer
                             </Button>
                         </Col>
