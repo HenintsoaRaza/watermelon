@@ -30,7 +30,6 @@ class account extends Component {
         const target = event.target;
         const value = target.value;
         const name = target.name;
-        const prevState = this.state;
 
         this.setState(prevState => {
             let user = { ...prevState.user };

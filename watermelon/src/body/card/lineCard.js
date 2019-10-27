@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Const from '../../const.js';
+import Card from '../../objects/card.js';
+
 
 const cste = new Const();
 
@@ -32,6 +34,35 @@ class lineCard extends Component {
         }
     }
 
+    handleInputChange = (event) => {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({ [name]: value });
+    }
+
+    saveChanges = (event) => {
+        this.toggleMode();
+
+        var c = new Card();
+        c.copy(this.state);
+
+        if (c.last_4.length == 4 && (/^\d+$/.test(c.last_4))) {
+            c.saveCard();
+
+        } else {
+            alert("Le numéro de la carte saisi n'est pas valide (4 chiffres)");
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    }
+
+    delete = () => {
+        var util = new Card();
+        util.removeCardById(this.state.id);
+        this.props.refresh();
+    }
 
     render() {
         return (
@@ -39,7 +70,7 @@ class lineCard extends Component {
                 <td align="center">
                     <Form.Control type="text" style={{ color: 'white' }}
                         name="last_4" plaintext value={this.state.last_4}
-                        readOnly={this.state.readOnly} />
+                        readOnly={this.state.readOnly} onChange={this.handleInputChange} />
                 </td>
 
                 <td align="center">
@@ -67,8 +98,8 @@ class lineCard extends Component {
 
                 <td align="center">
                     <Form.Control type="month" name="expired_at"
-                        plaintext style={{ color: 'white' }}
-                        readOnly={this.state.readOnly} value={this.state.expired_at}/>
+                        plaintext style={{ color: 'white' }} onChange={this.handleInputChange}
+                        readOnly={this.state.readOnly} value={this.state.expired_at} />
                 </td>
 
                 <td align="center">
@@ -78,11 +109,11 @@ class lineCard extends Component {
                         </Button>
 
                     <Button style={{ display: this.state.save }} variant="primary"
-                        onClick={this.toggleMode} >
+                        onClick={this.saveChanges} >
                         Enregistrer
                         </Button>
 
-                    <Button variant="danger">Supprimer</Button>
+                    <Button onClick={this.delete} variant="danger">Supprimer</Button>
                 </td>
             </tr>
         );

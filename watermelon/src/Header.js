@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Badge from 'react-bootstrap/Badge';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import User from './objects/user';
 import './App.css';
 import logo from './img/logo.png';
 
@@ -18,48 +18,24 @@ class Header extends Component {
                 this.props.onChange({ userId: -1, page: eventKey });
                 break;
 
-            case 'card':
-                this.props.onChange({ userId: this.props.userId, page: eventKey });
-                break;
-
-            case 'wallet':
-                this.props.onChange({ userId: this.props.userId, page: eventKey });
-                break;
-            /*
-            case 'addCard':
-                this.props.onChange({ userId: this.props.userId, page: eventKey });
-                break;
- 
-            case 'delCard':
-                this.props.onChange({ userId: this.props.userId, page: eventKey });
-                break;
- 
-            case 'updCard':
-                this.props.onChange({ userId: this.props.userId, page: eventKey });
-                break;
- 
-            case 'deposit':
-                this.props.onChange({ userId: this.props.userId, page: eventKey });
-                break;
- 
-            case 'withdrawal':
-                this.props.onChange({ userId: this.props.userId, page: eventKey });
-                break;
- 
-            case 'transfer':
-                this.props.onChange({ userId: this.props.userId, page: eventKey });
-                break;*/
-
-            case 'account':
-                this.props.onChange({ userId: this.props.userId, page: eventKey });
+            case 'signIn':
+                this.props.onChange({ userId: -1, page: eventKey });
                 break;
 
             case 'signUp':
                 this.props.onChange({ userId: -1, page: eventKey });
                 break;
 
-            case 'signIn':
-                this.props.onChange({ userId: -1, page: eventKey });
+            case 'account':
+                this.props.onChange({ userId: this.props.userId, page: eventKey });
+                break;
+
+            case 'card':
+                this.props.onChange({ userId: this.props.userId, page: eventKey });
+                break;
+
+            case 'wallet':
+                this.props.onChange({ userId: this.props.userId, page: eventKey });
                 break;
 
             default:
@@ -69,6 +45,7 @@ class Header extends Component {
     }
 
     displayHeader = () => {
+        
         if (this.props.userId === -1) {
             return (
                 <Nav
@@ -86,6 +63,9 @@ class Header extends Component {
                 </Nav>
             );
         } else {
+            var u = new User();
+            u.findUserById(this.props.userId);
+
             return (
                 <Nav
                     className="justify-content-end"
@@ -97,7 +77,7 @@ class Header extends Component {
                     <Nav.Link eventKey="account">     Mon Compte     </Nav.Link>
 
                     <Badge variant="danger">
-                        {this.props.userId} <br />
+                        {u.email} <br />
                         <Nav.Link eventKey="signOut" >Déconnexion</Nav.Link>
                     </Badge>
                 </Nav>

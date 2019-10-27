@@ -74,11 +74,8 @@ class myCards extends Component {
         }
     }
 
-
     render() {
         return (
-
-
             <div>
                 <br /><br /><br /><br />
                 <div class="bg-light rounded border container-fluid col-lg-8 col-md-11 col-sm-10" >
@@ -97,7 +94,7 @@ class myCards extends Component {
 
                     <div align="center" >
                         <Button variant="success" onClick={() => { this.toggleCollapse() }}>
-                            Ajouter une carte
+                            \/
                         </Button>
                     </div>
 
@@ -109,7 +106,7 @@ class myCards extends Component {
                             <Row form>
                                 <Col md={4}>
                                     <FormGroup>
-                                        <label for="number">N° de carte (4 derniers chiffres)</label>
+                                        <label for="number">N° (4 derniers chiffres)</label>
                                         <Form.Control
                                             required onChange={this.handleInputChange}
                                             name="last_4" type="text"

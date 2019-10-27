@@ -73,8 +73,6 @@ class Body extends Component {
         return (
             <main class="container-fluid" role="main">
                 {this.displayBody()}
-                page: {this.props.page} <br />
-                userId: {this.props.userId}
             </main>
         );
 

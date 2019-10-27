@@ -56,13 +56,18 @@ class Card {
     getCardByUserId = (userId) => {
         var listCards = this.loadCards();
 
-        for(let i = 0; i < listCards.length; i++){
-            if(listCards[i].userId !== userId){
+        for (let i = 0; i < listCards.length; i++) {
+            if (listCards[i].userId !== userId) {
                 listCards.splice(i, 1);
             }
         }
 
         return listCards;
+    }
+
+    removeCardById = (id) => {
+        const key = 'c'.concat(id);
+        localStorage.removeItem(key);
     }
 
 

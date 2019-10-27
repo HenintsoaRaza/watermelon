@@ -25,12 +25,16 @@ class tableCards extends Component {
         var util = new Card();
         var id = this.state.userId;
         var listCard = util.getCardByUserId(id);
-        
+
         let listItem = listCard.map((c, index) =>
-            <LineCard card={c} i={index} />
+            <LineCard card={c} i={index} refresh={this.refresh} />
         );
 
-        return (<tbody>{listItem}</tbody>) ;
+        return (<tbody>{listItem}</tbody>);
+    }
+
+    refresh = () => {
+        window.location.reload(false);
     }
 
 
