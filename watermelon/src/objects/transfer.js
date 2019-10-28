@@ -5,7 +5,7 @@ class Transfer {
         this.credited_wallet_id = credited_wallet_id;
         this.amount = amount;
     }
-
+ 
     load = () => {
         var listTransfer = [];
 
@@ -26,7 +26,7 @@ class Transfer {
         var tab = [];
 
         for (let i = 0; i < listTransfer.length; i++) {
-            if (listTransfer[i].debited_wallet_id == wallet_id || listTransfer[i].credited_wallet_i == wallet_id) {
+            if (listTransfer[i].debited_wallet_id == wallet_id || listTransfer[i].credited_wallet_id == wallet_id) {
                 tab.push(listTransfer[i]);
             }
         }
@@ -54,6 +54,12 @@ class Transfer {
 
     copy = (obj) => {
         this.id = obj.id;
+        this.debited_wallet_id = obj.debited_wallet_id;
+        this.credited_wallet_id = obj.credited_wallet_id;
+        this.amount = obj.amount;
+    }
+
+    copy2 = (obj) => {
         this.debited_wallet_id = obj.debited_wallet_id;
         this.credited_wallet_id = obj.credited_wallet_id;
         this.amount = obj.amount;

@@ -74,6 +74,22 @@ class myCards extends Component {
         }
     }
 
+    button = () => {
+        if (this.state.collapse) {
+            return (
+                <Button variant="success" onClick={() => { this.toggleCollapse() }}>
+                    /\
+                </Button>
+            );
+        } else {
+            return (
+                <Button variant="success" onClick={() => { this.toggleCollapse() }}>
+                    \/
+                </Button>
+            );
+        }
+    }
+
     render() {
         return (
             <div>
@@ -93,9 +109,7 @@ class myCards extends Component {
                     <br />
 
                     <div align="center" >
-                        <Button variant="success" onClick={() => { this.toggleCollapse() }}>
-                            \/
-                        </Button>
+                        {this.button()}
                     </div>
 
                     <br />

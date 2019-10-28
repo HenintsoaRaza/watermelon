@@ -8,6 +8,7 @@ import Transfer from '../../objects/transfer';
 import { Collapse } from 'react-collapse';
 import User from '../../objects/user';
 import Wallet from '../../objects/wallet';
+import Card from '../../objects/card';
 
 
 class myTransfers extends Component {
@@ -54,32 +55,63 @@ class myTransfers extends Component {
     }
 
     save = (event) => {
-        this.toggleCollapse();
-        var t = new Transfer();
 
-        var receiver = new User();
-        var email = this.state.receiverEmail;
+        var util = new Card();
+        if (util.haveCard(this.state.debited_wallet_id)) {
 
-        // sauver dans Localstorage et ajouter au tab[]
-        if (receiver.existEmail(email) != null) {
-            this.setState(state => {
-                var newId = t.getNewId();
-                t.id = newId;
-                receiver.findUserByEmail(email);
-                t.copy(state);
-                t.credited_wallet_id = receiver.id;
-                t.amount = t.amount * 100;
-                t.save();
+            var util = new Wallet();
+            if (util.getBalanceById(this.state.debited_wallet_id) - this.state.amount >= 0 || this.state.amount > 0) {
+                var t = new Transfer();
 
-                const list = state.tab.concat({ t });
-                return { tab: list };
-            });
+                var receiver = new User();
+                var email = this.state.receiverEmail;
+                var myId = util.getEmail(this.state.debited_wallet_id);
+
+                // sauver dans Localstorage et ajouter au tab[]
+                if (receiver.existEmail(email) != null && email != myId) {
+                    this.setState(state => {
+                        this.toggleCollapse();
+
+                        var newId = t.getNewId();
+                        t.id = newId;
+                        receiver.findUserByEmail(email);
+                        t.copy2(state);
+                        t.credited_wallet_id = receiver.id;
+                        t.amount = t.amount * 100;
+                        t.save();
+
+                        const list = state.tab.concat({ t });
+                        return { tab: list };
+                    });
+                    window.location.reload(false);
+
+                } else if (receiver.existEmail(email) == null) {
+                    alert("L'email saisi est inconnue");
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else if (email == myId) {
+                    alert("Vous ne pouvez pas vous envoyez de l'argent à vous-même quand même :)");
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+            } else if(util.getBalanceById(this.state.debited_wallet_id) - this.state.amount < 0) {
+                event.preventDefault();
+                event.stopPropagation();
+                alert("Vos fonds sont insuffisants pour effectuer cette transaction :(");
+            } else if(this.state.amount <= 0) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
         } else {
-            alert("L'email saisi est inconnue");
             event.preventDefault();
             event.stopPropagation();
+            alert("Vous devriez ajouter une carte avant d'effectuer une transaction quelconque");
         }
     }
+
+
 
     render() {
         return (

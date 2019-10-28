@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 import Payin from '../../objects/payin.js';
 import { Collapse } from 'react-collapse';
+import Card from '../../objects/card.js';
 
 
 class myPayins extends Component {
@@ -45,29 +46,42 @@ class myPayins extends Component {
 
     }
 
-    save = () => {
-        this.toggleCollapse();
-        var pi = new Payin();
+    save = (event) => {
+        var util = new Card();
+        if (util.haveCard(this.state.wallet_id) && this.state.amount > 0) {
 
-        // sauver dans Localstorage et ajouter au tab[]
-        this.setState(state => {
-            var newId = pi.getNewId();
-            pi.id = newId;
-            pi.copy(state);
-            pi.amount = pi.amount * 100;
-            pi.save();
+            this.toggleCollapse();
+            var pi = new Payin();
 
-            const list = state.tab.concat({ pi });
+            // sauver dans Localstorage et ajouter au tab[]
+            this.setState(state => {
+                var newId = pi.getNewId();
+                pi.id = newId;
+                pi.copy(state);
+                pi.amount = pi.amount * 100;
+                pi.save();
 
-            list.sort((a, b) => {
-                if (a.id < b.id) return -1;
-                else if (a.id > b.id) return 1;
-                else return 0;
-            })
-            return { tab: list };
-        });
+                const list = state.tab.concat({ pi });
 
-        window.location.reload(false);
+                list.sort((a, b) => {
+                    if (a.id < b.id) return -1;
+                    else if (a.id > b.id) return 1;
+                    else return 0;
+                })
+                return { tab: list };
+            });
+
+            window.location.reload(false);
+
+        } else if (!util.haveCard(this.state.wallet_id)) {
+            event.preventDefault();
+            event.stopPropagation();
+            alert("Vous devriez ajouter une carte avant d'effectuer une transaction quelconque ;) ");
+        } else if (this.state.amount <= 0) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
     }
 
     render() {
@@ -98,21 +112,23 @@ class myPayins extends Component {
 
                 <Collapse isOpened={this.state.collapse}>
                     <hr />
-                    <Row>
-                        <Col md={4}></Col>
-                        <Col md={4}>
-                            <Form.Control
-                                required onChange={this.handleInputChange}
-                                name="amount" type="number" min="0" step="0.01"
-                                placeholder="Montant  € " value={this.state.amount}
-                            />
-                        </Col>
-                        <Col md={4}>
-                            <Button variant="primary" onClick={() => { this.save() }} >
-                                Enregistrer
+                    <Form onSubmit={this.save} >
+                        <Row>
+                            <Col md={4}></Col>
+                            <Col md={4}>
+                                <Form.Control
+                                    required onChange={this.handleInputChange}
+                                    name="amount" type="number" min="0" step="0.01"
+                                    placeholder="Montant  € " value={this.state.amount}
+                                />
+                            </Col>
+                            <Col md={4}>
+                                <Button variant="primary" type="submit" >
+                                    Enregistrer
                             </Button>
-                        </Col>
-                    </Row>
+                            </Col>
+                        </Row>
+                    </Form>
                     <br /><br />
                 </Collapse>
 

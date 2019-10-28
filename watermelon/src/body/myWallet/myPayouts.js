@@ -6,6 +6,8 @@ import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
 import Payout from '../../objects/payout.js';
 import { Collapse } from 'react-collapse';
+import Wallet from '../../objects/wallet.js';
+import Card from '../../objects/card.js';
 
 
 class myPayouts extends Component {
@@ -45,21 +47,45 @@ class myPayouts extends Component {
 
     }
 
-    save = () => {
-        this.toggleCollapse();
-        var po = new Payout();
+    save = (event) => {
+        var util = new Card();
+        if (util.haveCard(this.state.wallet_id)) {
 
-        // sauver dans Localstorage et ajouter au tab[]
-        this.setState(state => {
-            var newId = po.getNewId();
-            po.id = newId;
-            po.copy(state);
-            po.amount = po.amount * 100;
-            po.save();
+            var util = new Wallet();
+            alert(util.getBalanceById(this.state.wallet_id) - this.state.amount);
+            if (util.getBalanceById(this.state.wallet_id) - this.state.amount >= 0 && this.state.amount > 0) {
+                this.toggleCollapse();
+                var po = new Payout();
 
-            const list = state.tab.concat({ po });
-            return { tab: list };
-        });
+                // sauver dans Localstorage et ajouter au tab[]
+                this.setState(state => {
+                    var newId = po.getNewId();
+                    po.id = newId;
+                    po.copy(state);
+                    po.amount = po.amount * 100;
+                    po.save();
+
+                    const list = state.tab.concat({ po });
+                    return { tab: list };
+                });
+
+                window.location.reload(false);
+            } else if (util.getBalanceById(this.state.wallet_id) - this.state.amount < 0) {
+                event.preventDefault();
+                event.stopPropagation();
+                alert("Vos fonds sont insuffisants pour effectuer cette transaction :(");
+            } else if (this.state.amount <= 0) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+
+        } else {
+            event.preventDefault();
+            event.stopPropagation();
+            alert("Vous devriez ajouter une carte avant d'effectuer une transaction quelconque ;) ");
+        }
+
     }
 
     render() {
@@ -90,21 +116,23 @@ class myPayouts extends Component {
 
                 <Collapse isOpened={this.state.collapse}>
                     <hr />
-                    <Row>
-                        <Col md={4}></Col>
-                        <Col md={4}>
-                            <Form.Control
-                                required onChange={this.handleInputChange}
-                                name="amount" type="number" min="0" step="0.01"
-                                placeholder="Montant  € " value={this.state.amount}
-                            />
-                        </Col>
-                        <Col md={4}>
-                            <Button variant="primary" onClick={() => { this.save() }} >
-                                Enregistrer
+                    <Form onSubmit={this.save} >
+                        <Row>
+                            <Col md={4}></Col>
+                            <Col md={4}>
+                                <Form.Control
+                                    required onChange={this.handleInputChange}
+                                    name="amount" type="number" min="0" step="0.01"
+                                    placeholder="Montant  € " value={this.state.amount}
+                                />
+                            </Col>
+                            <Col md={4}>
+                                <Button variant="primary" type="submit" >
+                                    Enregistrer
                             </Button>
-                        </Col>
-                    </Row>
+                            </Col>
+                        </Row>
+                    </Form>
                     <br /><br />
                 </Collapse>
 

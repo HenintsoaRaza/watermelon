@@ -43,13 +43,13 @@ class lineCard extends Component {
     }
 
     saveChanges = (event) => {
-        this.toggleMode();
 
         var c = new Card();
         c.copy(this.state);
 
         if (c.last_4.length == 4 && (/^\d+$/.test(c.last_4))) {
             c.saveCard();
+            this.toggleMode();
 
         } else {
             alert("Le numéro de la carte saisi n'est pas valide (4 chiffres)");

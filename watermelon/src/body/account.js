@@ -15,6 +15,13 @@ class account extends Component {
         u.findUserById(pState.userId);
 
         this.state = {
+            oldUser: {
+                id: u.id,
+                first_name: u.first_name,
+                last_name: u.last_name,
+                email: u.email,
+                password: u.password,
+            },
             user: {
                 id: u.id,
                 first_name: u.first_name,
@@ -42,6 +49,10 @@ class account extends Component {
         this.setState({ readOnly: !this.state.readOnly });
     }
 
+    cancel = () => {
+        this.setState({ user: this.state.oldUser, readOnly: !this.state.readOnly })
+    }
+
     save = () => {
         var u = new User();
         if (u.existEmail(this.state.user.email)) { // (1) Si l'email existe bien
@@ -50,7 +61,9 @@ class account extends Component {
             if (id == this.state.user.id) { // (1)-(A) Si c'est le même id (même compte)
                 u.copy(this.state.user);
                 u.saveUser();
+                this.setState({ oldUser: this.state.user, readOnly: !this.state.readOnly })
                 alert('Les modifications ont été enregistrées');
+                this.modify();
 
             } else { // (1)-(B) Si l'email appartient à un autre compte
                 alert('Cette addresse email possède déjà un compte');
@@ -59,7 +72,33 @@ class account extends Component {
         } else { //(2) Si l'email n'existe pas 
             u.copy(this.state.user);
             u.saveUser();
+            this.setState({ oldUser: this.state.user, readOnly: !this.state.readOnly })
             alert('Les modifications ont été enregistrées');
+            this.modify();
+
+        }
+    }
+
+    button = () => {
+        if (this.state.readOnly) {
+            return (
+                <Form.Group controlId="formBasicButton">
+                    <Button variant="dark" size="lg" block onClick={this.modify}>
+                        Modifier
+                    </Button>
+                </Form.Group>
+            );
+        } else {
+            return (
+                <Form.Group controlId="formBasicButton">
+                    <Button variant="danger" size="lg" block onClick={this.cancel}>
+                        Annuler
+                    </Button>
+                    <Button variant="primary" size="lg" block onClick={this.save}>
+                        Enregistrer
+                    </Button>
+                </Form.Group>
+            );
         }
     }
 
@@ -116,15 +155,7 @@ class account extends Component {
                         </Form.Group>
 
                         <br /><br />
-                        <Form.Group controlId="formBasicButton">
-                            <Button variant="dark" size="lg" block onClick={() => { this.modify() }}>
-                                Modifier
-                            </Button>
-                            <Button variant="primary" size="lg" block onClick={() => { this.save() }}>
-                                Enregistrer
-                            </Button>
-                        </Form.Group>
-
+                        {this.button()}
                         <br /><br />
 
                     </Form>

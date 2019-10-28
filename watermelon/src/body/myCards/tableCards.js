@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 import Const from '../../const.js';
 import User from '../../objects/user.js';

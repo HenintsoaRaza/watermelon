@@ -71,6 +71,14 @@ class Card {
         localStorage.removeItem(key);
     }
 
+    haveCard = (userId) => {
+        var tab = this.getCardByUserId(userId);
+        if(tab.length == 0) {
+            return false;
+        } else return true;
+
+    }
+
 
 
 }
