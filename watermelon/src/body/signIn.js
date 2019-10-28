@@ -35,10 +35,10 @@ class signIn extends Component {
             if (u.password !== this.state.password) { // Si le mdp saisi ne colle pas avec celui enregistré
                 event.preventDefault();
                 event.stopPropagation();
-                alert("Le mdp est incorrect");
+                alert("Le mot de passe est incorrect");
 
             } else {
-                var pState = { userId: u.id, page: 'account' };
+                var pState = { userId: u.id, page: 'wallet' };
                 var str = JSON.stringify(pState);
                 localStorage.setItem('prevState', str);
                 // Se connecter sur la page "Mon compte" avec le user trouvé

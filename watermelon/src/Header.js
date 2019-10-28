@@ -39,13 +39,12 @@ class Header extends Component {
                 break;
 
             default:
-                alert('default case');
                 break;
         }
     }
 
     displayHeader = () => {
-        
+
         if (this.props.userId === -1) {
             return (
                 <Nav

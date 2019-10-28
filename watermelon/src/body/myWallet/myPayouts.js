@@ -26,10 +26,10 @@ class myPayouts extends Component {
     }
 
     tabPayouts = () => {
-        let listItem = this.state.tab.map((payout, index) =>
+        let listItem = this.state.tab.map((payout) =>
             <tr>
-                <td align="center"> {index} </td>
-                <td align="center"> {(payout.amount/100)}</td>
+                <td align="center"> {payout.id} </td>
+                <td align="center"> {(payout.amount / 100)}</td>
             </tr>
 
         );
@@ -72,15 +72,15 @@ class myPayouts extends Component {
 
                 <Table striped bordered hover variant="danger">
                     <thead>
-                        <th width="30%"># transaction</th>
+                        <th width="30%"># référence</th>
                         <th width="70%">Montant (€)</th>
                     </thead>
 
-                    
-                        {this.tabPayouts()}
+
+                    {this.tabPayouts()}
                 </Table>
 
-                <br/><br/>
+                <br /><br />
                 <div align="center" >
                     <Button variant="danger" onClick={this.toggleCollapse}>
                         Effectuer un retrait

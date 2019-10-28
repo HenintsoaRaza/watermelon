@@ -22,10 +22,10 @@ class User {
         return listUsers;
     }
 
-    userNotIn(email){
+    userNotIn(email) {
         var listUsers = this.loadUsers();
-        for(let i = 0; i < listUsers.length; i++){
-            if(listUsers[i].email == email){
+        for (let i = 0; i < listUsers.length; i++) {
+            if (listUsers[i].email == email) {
                 return false;
             }
         }
@@ -71,6 +71,7 @@ class User {
         const tab = this.loadUsers();
 
         for (let i = 0; i < tab.length; i++) {
+
             if (tab[i].email == email) {
                 return tab[i].id;
             }

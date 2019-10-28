@@ -54,15 +54,29 @@ class Payout {
     }
 
     getPayoutsByWallet_id = (wallet_id) => {
-            var listPayouts = this.loadPayouts();
-    
-            for (let i = 0; i < listPayouts.length; i++) {
-                if (listPayouts[i].wallet_id !== wallet_id) {
-                    listPayouts.splice(i, 1);
-                }
+        var listPayouts = this.loadPayouts();
+
+        var tab = [];
+
+        for (let i = 0; i < listPayouts.length; i++) {
+            if (listPayouts[i].wallet_id == wallet_id) {
+                tab.push(listPayouts[i]);
             }
-    
-            return listPayouts;
+        }
+
+        return tab;
+    }
+
+    totalPayouts = (wallet_id) => {
+        var listPayouts = this.getPayoutsByWallet_id(wallet_id);
+
+        var total = 0;
+
+        for (let i = 0; i < listPayouts.length; i++) {
+            total = total + listPayouts[i].amount;
+        }
+
+        return total;
     }
 
 }

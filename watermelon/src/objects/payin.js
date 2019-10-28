@@ -54,15 +54,27 @@ class Payin {
     }
 
     getPayinsByWallet_id = (wallet_id) => {
-            var listPayins = this.loadPayins();
-    
-            for (let i = 0; i < listPayins.length; i++) {
-                if (listPayins[i].wallet_id !== wallet_id) {
-                    listPayins.splice(i, 1);
-                }
+        var listPayins = this.loadPayins();
+        var tab = [];
+
+        for (let i = 0; i < listPayins.length; i++) {
+            if (listPayins[i].wallet_id == wallet_id) {
+                tab.push(listPayins[i]);
             }
-    
-            return listPayins;
+        }
+
+        return tab;
+    }
+
+    totalPayins = (wallet_id) => {
+        var listPayins = this.getPayinsByWallet_id(wallet_id);
+        var total = 0;
+
+        for (let i = 0; i < listPayins.length; i++) {
+            total = total + listPayins[i].amount;
+        }
+
+        return total;
     }
 
 }

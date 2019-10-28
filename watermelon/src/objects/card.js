@@ -55,14 +55,15 @@ class Card {
 
     getCardByUserId = (userId) => {
         var listCards = this.loadCards();
+        var tab = [];
 
         for (let i = 0; i < listCards.length; i++) {
-            if (listCards[i].userId !== userId) {
-                listCards.splice(i, 1);
+            if (listCards[i].userId == userId) {
+                tab.push(listCards[i]);
             }
         }
 
-        return listCards;
+        return tab;
     }
 
     removeCardById = (id) => {

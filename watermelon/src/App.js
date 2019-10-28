@@ -42,7 +42,7 @@ class App extends Component {
                     <font size="6" color="LightGrey">Auteurs:  </font><br /><br />
                     <font size="4" color="LightGrey">Henintsoa RAZAFINDRAZAKA </font><br />
                     <font size="4" color="LightGrey">Noha ZAHRAN </font>
-                <br /><br /><br />
+                    <br /><br /><br />
                 </div>
             </div>
         );

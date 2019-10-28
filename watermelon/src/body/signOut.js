@@ -22,7 +22,7 @@ function signOut() {
                     <p>Watermelon allows you to share money easily with your loved ones.</p>
                 </Carousel.Caption>
             </Carousel.Item>
-            
+
             <Carousel.Item >
                 <img
                     className="h-75 w-100"

@@ -7,6 +7,7 @@ import Table from 'react-bootstrap/Table';
 import Transfer from '../../objects/transfer';
 import { Collapse } from 'react-collapse';
 import User from '../../objects/user';
+import Wallet from '../../objects/wallet';
 
 
 class myTransfers extends Component {
@@ -15,8 +16,8 @@ class myTransfers extends Component {
         var t = new Transfer();
         var userId = this.props.userId;
         this.state = {
-            dest: '',
             collapse: false,
+            receiverEmail: null,
             debited_wallet_id: userId,
             credited_wallet_id: null,
             amount: null,
@@ -29,14 +30,17 @@ class myTransfers extends Component {
     }
 
     tabTransfers = () => {
+        var w = new Wallet();
+
         let listItem = this.state.tab.map((transfer) =>
             <tr>
                 <td align="center"> {transfer.id} </td>
-                <td align="center"> {transfer.debited_wallet_id} </td>
-                <td align="center"> {transfer.credited_wallet_id} </td>
-                <td align="center"> {(transfer.amount)}</td>
+                <td align="center"> {w.getEmail(transfer.debited_wallet_id)} </td>
+                <td align="center"> {w.getEmail(transfer.credited_wallet_id)} </td>
+                <td align="center"> {(transfer.amount) / 100}</td>
             </tr>
         );
+
         return (<tbody>{listItem}</tbody>);
     }
 
@@ -52,16 +56,19 @@ class myTransfers extends Component {
     save = (event) => {
         this.toggleCollapse();
         var t = new Transfer();
-        var u = new User();
-        u.findUserById(this.props.userId);
-        var email = u.email;
+
+        var receiver = new User();
+        var email = this.state.receiverEmail;
 
         // sauver dans Localstorage et ajouter au tab[]
-        if (u.existEmail(email) != null) {
+        if (receiver.existEmail(email) != null) {
             this.setState(state => {
                 var newId = t.getNewId();
                 t.id = newId;
+                receiver.findUserByEmail(email);
                 t.copy(state);
+                t.credited_wallet_id = receiver.id;
+                t.amount = t.amount * 100;
                 t.save();
 
                 const list = state.tab.concat({ t });
@@ -84,16 +91,16 @@ class myTransfers extends Component {
 
                 <Table striped bordered hover variant="warning">
                     <thead>
-                        <th>#</th>
-                        <th>De la part de...</th>
-                        <th>à destination de...</th>
-                        <th>Montant (€)</th>
+                        <th size="20%">#</th>
+                        <th size="30%">De la part de...</th>
+                        <th size="30%">à destination de...</th>
+                        <th size="20%">Montant (€)</th>
                     </thead>
 
                     {this.tabTransfers()}
                 </Table>
 
-                <br/><br/>
+                <br /><br />
 
                 <div align="center" >
                     <Button variant="warning" onClick={this.toggleCollapse}>
@@ -109,8 +116,8 @@ class myTransfers extends Component {
                             <Col md={4}>
                                 <Form.Control
                                     required onChange={this.handleInputChange}
-                                    name="credited_wallet_id" type="email"
-                                    placeholder="à destination de... " value={this.state.credited_wallet_id}
+                                    name="receiverEmail" type="email"
+                                    placeholder="à destination de... " value={this.state.receiverEmail}
                                 />
                             </Col>
                             <Col md={4}>

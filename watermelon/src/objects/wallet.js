@@ -1,3 +1,8 @@
+import Transfer from './transfer.js';
+import Payin from './payin.js';
+import Payout from './payout.js';
+import User from './user.js';
+
 class Wallet {
     constructor(id, balance) {
         this.id = id;
@@ -33,8 +38,8 @@ class Wallet {
 
     exist = (id) => {
         var key = 'w'.concat(id);
-        
-        if(localStorage.getItem(key) == null){
+
+        if (localStorage.getItem(key) == null) {
             return false;
         } else {
             return true;
@@ -45,10 +50,36 @@ class Wallet {
         var key = 'w'.concat(id);
         var w = new Wallet();
 
-        if(w.exist(id)){
+        if (w.exist(id)) {
             w.copy(JSON.parse(localStorage.getItem(key)));
             return w.balance;
         } else return null;
+    }
+
+    calculBalance = (wallet_id) => {
+        var pi = new Payin();
+        var po = new Payout();
+        var tr = new Transfer();
+
+        var payins = pi.totalPayins(wallet_id);
+        var payouts = po.totalPayouts(wallet_id);
+        var transfers = tr.balanceTransfers(wallet_id);
+
+        var balance = payins - payouts + transfers;
+
+        this.id = wallet_id;
+        this.balance = balance;
+
+        this.saveWallet();
+
+        return balance;
+    }
+
+    getEmail = (wallet_id) => {
+        var u = new User();
+        u.findUserById(wallet_id);
+
+        return u.email;
     }
 
 }

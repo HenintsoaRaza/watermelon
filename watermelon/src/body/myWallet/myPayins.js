@@ -59,11 +59,11 @@ class myPayins extends Component {
 
             const list = state.tab.concat({ pi });
 
-            list.sort((a,b) => { 
-                if(a.id < b.id) return -1;
-                else if(a.id > b.id) return 1;
+            list.sort((a, b) => {
+                if (a.id < b.id) return -1;
+                else if (a.id > b.id) return 1;
                 else return 0;
-             })
+            })
             return { tab: list };
         });
 
@@ -80,7 +80,7 @@ class myPayins extends Component {
 
                 <Table striped bordered hover variant="success">
                     <thead>
-                        <th width="30%"># transaction </th>
+                        <th width="30%"># référence </th>
                         <th width="70%">Montant (€)</th>
                     </thead>
 

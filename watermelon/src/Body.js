@@ -30,7 +30,6 @@ class Body extends Component {
                 return <display.signIn />;
 
             default:
-                alert('default case');
                 break;
         }
     }
