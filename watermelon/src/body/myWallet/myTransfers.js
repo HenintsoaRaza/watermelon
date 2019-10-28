@@ -57,7 +57,7 @@ class myTransfers extends Component {
         var email = u.email;
 
         // sauver dans Localstorage et ajouter au tab[]
-        if (u.existEmail(email) == true) {
+        if (u.existEmail(email) != null) {
             this.setState(state => {
                 var newId = t.getNewId();
                 t.id = newId;

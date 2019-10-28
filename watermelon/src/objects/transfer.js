@@ -68,7 +68,9 @@ class Transfer {
         var obj = JSON.stringify(this);
         localStorage.setItem(key, obj);
 
-        obj.invert();
+        alert(obj);
+
+        this.invert();
         var key = 't'.concat(this.id);
         var obj = JSON.stringify(this);
         localStorage.setItem(key, obj);
