@@ -4,20 +4,6 @@ import Button from 'react-bootstrap/Button';
 import User from '../objects/user.js';
 
 
-/*
-function handleEmail(event) {
-        this.setState({ email: event.target.email });
-    }
-function handlePassword(event) {
-        this.setState1({ lpassword: event.target.password });
-    }
-
-function handleConnect(event) {
-        alert('Welcome to watermelon');
-        event.preventDefault();
-    }*/
-
-
 class signIn extends Component {
     constructor(props) {
         super(props);

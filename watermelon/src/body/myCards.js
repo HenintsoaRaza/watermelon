@@ -21,7 +21,6 @@ class myCards extends Component {
         var pState = JSON.parse(localStorage.getItem(cste.keyPrevState));
         var u = new User();
         u.findUserById(pState.userId);
-
         this.currentDate = this.currentDate();
 
         this.state = {
