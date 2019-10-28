@@ -72,8 +72,8 @@ class myPayouts extends Component {
 
                 <Table striped bordered hover variant="danger">
                     <thead>
-                        <th>#</th>
-                        <th>Montant (€)</th>
+                        <th width="30%"># transaction</th>
+                        <th width="70%">Montant (€)</th>
                     </thead>
 
                     

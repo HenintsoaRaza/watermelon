@@ -26,13 +26,12 @@ class myPayins extends Component {
     }
 
     tabPayins = () => {
-        let listItem = this.state.tab.map((payin, index) => 
+        let listItem = this.state.tab.map((payin) =>
             <tr>
-                <td align="center"> {index} </td>
-                <td align="center"> {payin.amount/100}</td>
+                <td align="center"> {payin.id} </td>
+                <td align="center"> {payin.amount / 100}</td>
             </tr>
         );
-
 
         return (<tbody>{listItem}</tbody>);
     }
@@ -59,8 +58,16 @@ class myPayins extends Component {
             pi.save();
 
             const list = state.tab.concat({ pi });
+
+            list.sort((a,b) => { 
+                if(a.id < b.id) return -1;
+                else if(a.id > b.id) return 1;
+                else return 0;
+             })
             return { tab: list };
         });
+
+        window.location.reload(false);
     }
 
     render() {
@@ -73,15 +80,15 @@ class myPayins extends Component {
 
                 <Table striped bordered hover variant="success">
                     <thead>
-                        <th>#</th>
-                        <th>Montant (€)</th>
+                        <th width="30%"># transaction </th>
+                        <th width="70%">Montant (€)</th>
                     </thead>
 
-                    
-                        {this.tabPayins()}
+
+                    {this.tabPayins()}
                 </Table>
 
-                <br/><br/>
+                <br /><br />
                 <div align="center" >
                     <Button variant="success" onClick={this.toggleCollapse}>
                         Effectuer un dépôt
